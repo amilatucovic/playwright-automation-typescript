@@ -37,7 +37,7 @@ test('Radio Button Actions', async ({page}) => {
 
 
 // Checkbox
-test.only('Checkbox Actions', async ({page}) => {
+test('Checkbox Actions', async ({page}) => {
   await page.goto("https://testautomationpractice.blogspot.com/");
   
   const sundayCheckbox: Locator = page.getByLabel('Sunday');
