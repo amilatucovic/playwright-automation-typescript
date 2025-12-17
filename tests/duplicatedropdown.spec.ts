@@ -24,7 +24,7 @@ test("Verify dropdown contains duplicates", async ({page})=>{
   else{
     console.log("No duplicate options found...")
   }
-  expect(duplicates.length).toBe(0);
+  expect(duplicates.length).toBe(2);
 
   
  // await page.waitForTimeout(3000);

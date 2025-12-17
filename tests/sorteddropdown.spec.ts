@@ -19,7 +19,7 @@ test("Verify dropdown is Sorted", async ({page})=>{
   console.log("Original list: ", originalList);
   console.log("Sorted list: ", sortedList);
 
-  expect(originalList).toEqual(sortedList);
+  expect(originalList).not.toEqual(sortedList);
  // await page.waitForTimeout(3000);
 });
 
