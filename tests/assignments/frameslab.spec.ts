@@ -40,7 +40,7 @@ test('Frame 3: Handle nested frame and form interactions', async ({ page }) => {
     await child.getByRole('option', { name: /Odaberi|Select/i }).click();
     await page.waitForTimeout(2000);
     await child.getByRole('option', { name: 'Yes' }).click();
-    await page.waitForTimeout(2000);
+    //await page.waitForTimeout(2000);
 
     await child.getByRole('button', { name: /Dalje|Next/i }).click();
 
