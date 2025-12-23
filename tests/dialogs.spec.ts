@@ -29,7 +29,7 @@ test("Confirmation Dialog", async ({page}) => {
   await page.waitForTimeout(5000);
 });
 
-test.only("Prompt Dialog", async ({page}) => {
+test("Prompt Dialog", async ({page}) => {
   await page.goto("https://testautomationpractice.blogspot.com/");
   page.on('dialog', dialog => { 
     console.log("Dialog type is:", dialog.type());
