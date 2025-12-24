@@ -22,7 +22,7 @@ test('Frame 2: Fill and assert input field', async ({ page }) => {
 //Pitanje za Aidu: zasto na regularnoj stranici su na engleskom dugmad i dropdown a kada u automationu
 //pokrenem na bosanskom bude i onda padaju testovi ako ostane na engleskom
 // Test for Frame 3 with Nested Child Frame
-test('Frame 3: Handle nested frame and form interactions', async ({ page }) => {
+test.only('Frame 3: Handle nested frame and form interactions', async ({ page }) => {
   await page.goto('https://ui.vision/demo/webtest/frames/');
   const frame3 = page.frame({ url: 'https://ui.vision/demo/webtest/frames/frame_3.html' });
 
@@ -40,7 +40,7 @@ test('Frame 3: Handle nested frame and form interactions', async ({ page }) => {
     await child.getByRole('option', { name: /Odaberi|Select/i }).click();
     await page.waitForTimeout(2000);
     await child.getByRole('option', { name: 'Yes' }).click();
-    //await page.waitForTimeout(2000);
+    await page.waitForTimeout(2000);
 
     await child.getByRole('button', { name: /Dalje|Next/i }).click();
 
