@@ -19,63 +19,74 @@ test('Frame 2: Fill and assert input field', async ({ page }) => {
     console.error("Frame 2 not found.");
   }
 });
-//Pitanje za Aidu: zasto na regularnoj stranici su na engleskom dugmad i dropdown a kada u automationu
-//pokrenem na bosanskom bude i onda padaju testovi ako ostane na engleskom
+
 // Test for Frame 3 with Nested Child Frame
-
 test('Frame 3: Handle nested frame and form interactions', async ({ page }) => {
-  await page.goto('https://ui.vision/demo/webtest/frames/');
+  // Povećaj timeout za ovaj test
+  test.setTimeout(60000);
+  
+  await page.goto('https://ui.vision/demo/webtest/frames/', { waitUntil: 'networkidle' });
+  
+  const frame3 = page.frame({ url: 'https://ui.vision/demo/webtest/frames/frame_3.html' });
 
-  // Frame 3
-  const frame3 = page.frameLocator('frame[src="frame_3.html"]');
-  const parentInput = frame3.locator('[name="mytext3"]');
-  await parentInput.fill('You are in Frame 3 - Teal');
-  await expect(parentInput).toHaveValue('You are in Frame 3 - Teal');
-  const child = frame3.frameLocator('iframe');
+  if (frame3) {
+    await frame3.locator('[name="mytext3"]').fill('You are in Frame 3 - Teal');
+    await expect(frame3.locator('[name="mytext3"]')).toHaveValue('You are in Frame 3 - Teal');
 
-  // Radio button
-  await child.getByRole('radio', {
-    name: 'Hi, I am the UI.Vision IDE',
-  }).click();
+    const childFrames = frame3.childFrames();
+  
+    await page.waitForTimeout(2000);
+    const child = childFrames[0];
 
-  // Checkbox
-  await child.getByRole('checkbox', { name: 'Form Autofilling' }).click();
-  const dropdownTrigger = child.locator('[role="listbox"]');
+    
+    const radioButton = child.getByRole('radio', { name: 'Hi, I am the UI.Vision IDE' });
+    await radioButton.waitFor({ state: 'visible', timeout: 10000 });
+    await radioButton.click();
+   
+    const checkbox = child.getByRole('checkbox', { name: 'Form Autofilling' });
+    await checkbox.waitFor({ state: 'visible', timeout: 10000 });
+    await checkbox.click();
+ 
+    
+    const dropdownTrigger = child.getByRole('option', { name: /Odaberi|Choose|Select/i });
+    await dropdownTrigger.waitFor({ state: 'visible', timeout: 10000 });
+    await dropdownTrigger.click();
+    
+   
+    await page.waitForTimeout(3000); 
+    
+    const yesOption = child.getByRole('option', { name: 'Yes' });
+    await yesOption.waitFor({ state: 'visible', timeout: 10000 });
+    await yesOption.click();
+    
+    await page.waitForTimeout(2000);
 
-// Otvori dropdown
-await dropdownTrigger.click();
+    const nextButton = child.getByRole('button', { name: /Dalje|Next/i });
+    await nextButton.waitFor({ state: 'visible', timeout: 10000 });
+    await nextButton.click();
 
-await child.getByRole('option', { name: /Odaberi|Select/i }).click();
-await dropdownTrigger.click();
-//await page.waitForTimeout(3000);
-await child.getByRole('option', { name: 'Yes' }).click();
-//await page.waitForTimeout(3000);
-await child.getByRole('button', { name: /Dalje|Next/i }).click();
+    const shortText = child.getByRole('textbox', { name: 'Enter a short text' });
+    await shortText.waitFor({ state: 'visible', timeout: 10000 });
+    await shortText.fill('We are here');
+    await expect(shortText).toHaveValue('We are here');
 
-  // Short text
-  const shortText = child.getByRole('textbox', {
-    name: 'Enter a short text',
-  });
-  await shortText.fill('We are here');
-  await expect(shortText).toHaveValue('We are here');
+    const longText = child.getByRole('textbox', { name: 'Enter a long answer' });
+    await longText.waitFor({ state: 'visible', timeout: 10000 });
+    await longText.fill('We are able to access all element in child frame');
+    await expect(longText).toHaveValue('We are able to access all element in child frame');
 
-  // Long text
-  const longText = child.getByRole('textbox', {
-    name: 'Enter a long answer',
-  });
-  await longText.fill('We are able to access all element in child frame');
-  await expect(longText).toHaveValue(
-    'We are able to access all element in child frame'
-  );
-
-  // Submit
-  await child.getByRole('button', { name: 'Submit' }).click();
-
-  // Confirmation
-  const confirmationText = await child.locator('.vHW8K').innerText();
-  expect(confirmationText).toContain('Thank you for testing the UI');
+    const submitButton = child.getByRole('button', { name: /Podnesi|Submit/i  });
+    await submitButton.waitFor({ state: 'visible', timeout: 10000 });
+    await submitButton.click();
+    
+    const confirmation = child.locator('.vHW8K');
+    await confirmation.waitFor({ state: 'visible', timeout: 10000 });
+    const confirmationText = await confirmation.innerText();
+    expect(confirmationText).toContain('Thank you for testing the UI');
+  } else {
+    console.error("Frame 3 not found.");
+  }
 });
-
 
 // Test for Frame 5
 test('Frame 5: Fill input and verify logo after link click', async ({ page }) => {

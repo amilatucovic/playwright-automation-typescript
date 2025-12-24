@@ -32,8 +32,8 @@ test("Inner/Child Frames Demo", async ({page}) => {
     const childFrames = frame3.childFrames();
     console.log("Child frames inside the Frame 3: ", childFrames.length);
     const radio = childFrames[0].getByLabel("I am a human");
-    radio.check(); // select radio button
-    await expect(radio).toBeChecked(); //assertion
+    await radio.click(); // select radio button
+    await expect(radio).toHaveAttribute('aria-checked', 'true');
   }
   else{
     console.log("Frame 3 is not found...");
