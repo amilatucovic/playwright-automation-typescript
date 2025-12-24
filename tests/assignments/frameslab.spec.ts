@@ -23,7 +23,7 @@ test('Frame 2: Fill and assert input field', async ({ page }) => {
 //pokrenem na bosanskom bude i onda padaju testovi ako ostane na engleskom
 // Test for Frame 3 with Nested Child Frame
 
-test.only('Frame 3: Handle nested frame and form interactions', async ({ page }) => {
+test('Frame 3: Handle nested frame and form interactions', async ({ page }) => {
   await page.goto('https://ui.vision/demo/webtest/frames/');
 
   // Frame 3
