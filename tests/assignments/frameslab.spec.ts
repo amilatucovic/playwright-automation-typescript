@@ -39,15 +39,18 @@ test('Frame 3: Handle nested frame and form interactions', async ({ page }) => {
   }).click();
 
   // Checkbox
-  await child.getByRole('checkbox', {
-    name: 'Form Autofilling',
-  }).click();
+  await child.getByRole('checkbox', { name: 'Form Autofilling' }).click();
+  const dropdownTrigger = child.locator('[role="listbox"]');
 
-  await child.getByRole('option', { name: /Odaberi|Select/i }).click(); 
-  await page.waitForTimeout(2000); 
-  await child.getByRole('option', { name: 'Yes' }).click(); 
-  await page.waitForTimeout(2000); 
-  await child.getByRole('button', { name: /Dalje|Next/i }).click();
+// Otvori dropdown
+await dropdownTrigger.click();
+
+await child.getByRole('option', { name: /Odaberi|Select/i }).click();
+await dropdownTrigger.click();
+//await page.waitForTimeout(3000);
+await child.getByRole('option', { name: 'Yes' }).click();
+//await page.waitForTimeout(3000);
+await child.getByRole('button', { name: /Dalje|Next/i }).click();
 
   // Short text
   const shortText = child.getByRole('textbox', {
