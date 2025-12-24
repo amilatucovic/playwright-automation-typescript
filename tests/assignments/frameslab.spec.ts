@@ -30,32 +30,38 @@ test('Frame 3: Handle nested frame and form interactions', async ({ page }) => {
     await frame3.locator('[name="mytext3"]').fill('You are in Frame 3 - Teal');
     await expect(frame3.locator('[name="mytext3"]')).toHaveValue('You are in Frame 3 - Teal');
 
-    const childFrames = frame3.childFrames();
-    const child = childFrames[0];
+    const child = await frame3.waitForSelector('iframe');
+    const childFrame = await child.contentFrame();
+
+if (!childFrame) throw new Error('Child frame not loaded');
+
 
     // Interact with elements in the child frame
-    await child.getByRole('radio', { name: 'Hi, I am the UI.Vision IDE' }).click();
-   
-    await child.getByRole('checkbox', { name: 'Form Autofilling' }).click();
-    await expect(child.getByRole('option', { name: /Odaberi|Select/i })).toBeVisible();
-    await child.getByRole('option', { name: /Odaberi|Select/i }).click();
+    await childFrame.getByRole('radio', { name: 'Hi, I am the UI.Vision IDE' }).click();
+    await childFrame.getByRole('checkbox', { name: 'Form Autofilling' }).click();
+
+   await expect(
+  childFrame.getByRole('option', { name: /Odaberi|Select/i })
+   ).toBeVisible();
+
+    await childFrame.getByRole('option', { name: /Odaberi|Select/i }).click();
     //await page.waitForTimeout(2000);
-    await expect(child.getByRole('option', { name: 'Yes' })).toBeVisible();
-    await child.getByRole('option', { name: 'Yes' }).click();
+    await expect(childFrame.getByRole('option', { name: 'Yes' })).toBeVisible();
+    await childFrame.getByRole('option', { name: 'Yes' }).click();
     //await page.waitForTimeout(2000);
 
-    await child.getByRole('button', { name: /Dalje|Next/i }).click();
+    await childFrame.getByRole('button', { name: /Dalje|Next/i }).click();
 
-    const shortText = child.getByRole('textbox', { name: 'Enter a short text' });
+    const shortText = childFrame.getByRole('textbox', { name: 'Enter a short text' });
     await shortText.fill('We are here');
     await expect(shortText).toHaveValue('We are here');
 
-    const longText = child.getByRole('textbox', { name: 'Enter a long answer' });
+    const longText = childFrame.getByRole('textbox', { name: 'Enter a long answer' });
     await longText.fill('We are able to access all element in child frame');
     await expect(longText).toHaveValue('We are able to access all element in child frame');
 
-    await child.getByRole('button', { name: 'Submit' }).click();
-    const confirmationText = await child.locator('.vHW8K').innerText();
+    await childFrame.getByRole('button', { name: 'Submit' }).click();
+    const confirmationText = await childFrame.locator('.vHW8K').innerText();
     expect(confirmationText).toContain('Thank you for testing the UI');
   } else {
     console.error("Frame 3 not found.");
