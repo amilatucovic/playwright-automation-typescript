@@ -40,10 +40,6 @@ if (!childFrame) throw new Error('Child frame not loaded');
     await childFrame.getByRole('radio', { name: 'Hi, I am the UI.Vision IDE' }).click();
     await childFrame.getByRole('checkbox', { name: 'Form Autofilling' }).click();
 
-   await expect(
-  childFrame.getByRole('option', { name: /Odaberi|Select/i })
-   ).toBeVisible();
-
     await childFrame.getByRole('option', { name: /Odaberi|Select/i }).click();
     //await page.waitForTimeout(2000);
     await expect(childFrame.getByRole('option', { name: 'Yes' })).toBeVisible();
