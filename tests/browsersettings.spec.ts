@@ -1,7 +1,7 @@
 import {test, expect, chromium} from "@playwright/test"
 
 test("Browser settings", async () => {
-  const browser = await chromium.launch({headless: false});  // runs in headed mode - we can see UI
+  const browser = await chromium.launch();  
   const context = await browser.newContext(
     {
         viewport: { width: 1280, height: 720 },

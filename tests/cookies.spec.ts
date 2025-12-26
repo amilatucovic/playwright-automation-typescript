@@ -4,7 +4,7 @@ import {test, expect, chromium} from "@playwright/test"
 // The browsing history will be saved inside the cookies. Cookies are used for session management, personalization, and tracking user behavior.
 
 test("Cookies management", async () => {
-  const browser = await chromium.launch({headless: false});  // runs in headed mode - we can see UI
+  const browser = await chromium.launch();  
   const context = await browser.newContext();
   const page = await context.newPage();
   context.addCookies(
