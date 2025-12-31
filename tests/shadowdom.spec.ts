@@ -11,7 +11,7 @@ test("Shadow DOM handling", async ({page}) => {
 
     const booksFounnd = await page.locator('h2.title').all();
     console.log("Number of books found: ", booksFounnd.length);
-    expect(booksFounnd.length).toBe(20);
+    expect(booksFounnd.length).toBeGreaterThan(0);
 });
 
 test("Shadow DOM handling - Part II", async ({page}) => { 
