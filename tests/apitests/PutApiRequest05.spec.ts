@@ -8,7 +8,7 @@ function readJson(filePath: string) {
 
 test('Update Booking - PUT request', async ({request}) => {
     const requestBody = readJson('testdata/post_request_body.json');
-    const createResponse = await request.post('/booking', {data:requestBody}); // Create a booking to update
+    const createResponse = await request.post('https://restful-booker.herokuapp.com/booking', {data:requestBody}); // Create a booking to update
     expect(createResponse.ok()).toBeTruthy();
 
     const responseBody = await createResponse.json();
@@ -16,7 +16,7 @@ test('Update Booking - PUT request', async ({request}) => {
     console.log(`Booking ID: ${bookingId}`);
 
     const tokenRequestBody = readJson('testdata/token_request_body.json');
-    const tokenResponse = await request.post('/auth', {data: tokenRequestBody}); // Get auth token
+    const tokenResponse = await request.post('https://restful-booker.herokuapp.com/auth', {data: tokenRequestBody}); // Get auth token
     expect(tokenResponse.ok()).toBeTruthy();
 
     const tokenResponseBody = await tokenResponse.json();
@@ -25,7 +25,7 @@ test('Update Booking - PUT request', async ({request}) => {
 
 
     const putRequestBody = readJson('testdata/put_request_body.json');
-    const updateResponse = await request.put(`/booking/${bookingId}`, {
+    const updateResponse = await request.put(`https://restful-booker.herokuapp.com/booking/${bookingId}`, {
         data: putRequestBody,
         headers: {
             'Cookie': `token=${token}`

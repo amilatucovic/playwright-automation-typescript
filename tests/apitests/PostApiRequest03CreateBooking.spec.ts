@@ -31,7 +31,7 @@ test("Create POST request using randomly generated data", async ({ request }) =>
     };
 
 
-    const response = await request.post('/booking', {
+    const response = await request.post('https://restful-booker.herokuapp.com/booking', {
         data: requestBody
     });
     const responseBody = await response.json();

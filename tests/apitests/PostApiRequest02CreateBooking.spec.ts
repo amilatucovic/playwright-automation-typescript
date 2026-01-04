@@ -9,7 +9,7 @@ test("Create POST request using JSON file", async ({ request }) => {
     const data = fs.readFileSync(jsonFile, 'utf-8');
     const requestBody = JSON.parse(data);
 
-    const response = await request.post('/booking', {
+    const response = await request.post('https://restful-booker.herokuapp.com/booking', {
         data: requestBody
     });
     const responseBody = await response.json();

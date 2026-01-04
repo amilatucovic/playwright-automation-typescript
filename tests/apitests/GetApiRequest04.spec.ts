@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test"
 
 test('Get booking details by ID - path parameter', async ({ request }) => {
     const bookingId = 1; // We can pass this as path parameter
-    const response = await request.get(`/booking/${bookingId}`);
+    const response = await request.get(`https://restful-booker.herokuapp.com/booking/${bookingId}`);
     const responseBody = await response.json();
     console.log(responseBody);
 
@@ -23,7 +23,7 @@ test('Get booking details by Name - query parameter', async ({ request }) => {
     const lastName = "Jackson";
     
     // const response = await request.get(`/booking?firstname=${firstName}&lastname=${lastName}`);
-    const response = await request.get('/booking', {
+    const response = await request.get('https://restful-booker.herokuapp.com/booking', {
         params: {
             firstname: firstName,
             lastname: lastName
