@@ -1,11 +1,11 @@
 {
-    "firstname": "Jim",
-    "lastname": "Brown",
-    "totalprice": 1000,
+    "firstname": "Jake",
+    "lastname": "Peralta",
+    "totalprice": 2000,
     "depositpaid": true,
     "bookingdates": {
         "checkin": "2026-07-01",
         "checkout": "2026-08-01"
     },
-    "additionalneeds": "Breakfast"
+    "additionalneeds": "Orangina"
 }
