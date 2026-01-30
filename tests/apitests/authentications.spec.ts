@@ -43,19 +43,19 @@ test('Token Authentication - User Info', async ({ request }) => {
 
 // API Key Authentication
 
-test('API Key Authentication 1', async ({ request }) => {
-    const apiKey = "32e4d4f554053273b4cf341c2ab68ea1";
+// test('API Key Authentication 1', async ({ request }) => {
+//     const apiKey = "YOUR_API_KEY_HERE"; 
 
-    const response = await request.get(
-        "https://api.openweathermap.org/data/2.5/weather",
-        {
-            params: {
-                q: 'Mostar',
-                appid: apiKey
-            }
-        }
-    );
+//     const response = await request.get(
+//         "https://api.openweathermap.org/data/2.5/weather",
+//         {
+//             params: {
+//                 q: 'Mostar',
+//                 appid: apiKey
+//             }
+//         }
+//     );
 
-    expect(response.status()).toBe(200);
-    console.log(await response.json());
-});
+//     expect(response.status()).toBe(200);
+//     console.log(await response.json());
+// });
