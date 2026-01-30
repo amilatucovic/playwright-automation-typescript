@@ -21,25 +21,26 @@ test('Basic Authentication', async ({ request }) => {
     expect(response.status()).toBe(200);
 });
 
-test('Token Authentication', async ({ request }) => {
-    const bearerToken = "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";
-    const response = await request.get("https://api.github.com/user/repos", {
-        headers: { 'Authorization': 'Bearer ' + bearerToken }
-    });
-    expect(response.ok()).toBeTruthy();
-    expect(response.status()).toBe(200);
-    console.log(await response.json());
-});
+// Token Auth
+// test('Token Authentication', async ({ request }) => {
+//     const bearerToken = "YOUR_BEARER_TOKEN_HERE";
+//     const response = await request.get("https://api.github.com/user/repos", {
+//         headers: { 'Authorization': 'Bearer ' + bearerToken }
+//     });
+//     expect(response.ok()).toBeTruthy();
+//     expect(response.status()).toBe(200);
+//     console.log(await response.json());
+// });
 
-test('Token Authentication - User Info', async ({ request }) => {
-    const bearerToken = "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";
-    const response = await request.get("https://api.github.com/user", {
-        headers: { 'Authorization': 'Bearer ' + bearerToken }
-    });
-    expect(response.ok()).toBeTruthy();
-    expect(response.status()).toBe(200);
-    console.log(await response.json());
-});
+// test('Token Authentication - User Info', async ({ request }) => {
+//     const bearerToken = "YOUR_BEARER_TOKEN_HERE";
+//     const response = await request.get("https://api.github.com/user", {
+//         headers: { 'Authorization': 'Bearer ' + bearerToken }
+//     });
+//     expect(response.ok()).toBeTruthy();
+//     expect(response.status()).toBe(200);
+//     console.log(await response.json());
+// });
 
 // API Key Authentication
 
