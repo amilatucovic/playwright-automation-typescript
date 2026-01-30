@@ -8,11 +8,11 @@ test("Cookies management", async () => {
   const context = await browser.newContext();
   const page = await context.newPage();
   context.addCookies(
-    [ {name: 'mycookie', value: '123456', url:'http://www.automationpractice.pl/index.php'} ]
+    [ {name: 'mycookie', value: '123456', url:'https://testautomationpractice.blogspot.com/'} ]
 
     );
     console.log("Cookie added...");
-  await page.goto("http://www.automationpractice.pl/index.php");
+  await page.goto("https://testautomationpractice.blogspot.com/");
   const allTheCookiesAdded = await context.cookies();
   const retrievedCookie = allTheCookiesAdded.find((c) => c.name == 'mycookie');
   console.log("Printing cookie details: ", retrievedCookie);

@@ -1,8 +1,8 @@
 import {test, expect} from "@playwright/test";
 
 test ("Verify page URL", async ({page})=> {
-  await page.goto("http://www.automationpractice.pl/index.php");
+  await page.goto("https://testautomationpractice.blogspot.com/");
   let url:string = await page.url();
   console.log("URL: ", url)
-  await expect(page).toHaveURL("http://www.automationpractice.pl/index.php");
+  await expect(page).toHaveURL("https://testautomationpractice.blogspot.com/");
 });
